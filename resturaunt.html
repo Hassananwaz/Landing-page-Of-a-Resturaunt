@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savory Heights | Fine Dining Experience</title>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 100px 5%;
+            position: relative;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background 0.3s ease, padding 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 15px 5%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #e2b04a;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #e2b04a;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #e2b04a;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .menu-btn {
+            background: #e2b04a;
+            color: #0a0a0a;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .menu-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(226, 176, 74, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1600/900') center/cover no-repeat;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent, #000 70%);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.3s;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.6s;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards 0.9s;
+        }
+        
+        .primary-btn, .secondary-btn {
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .primary-btn {
+            background: #e2b04a;
+            color: #0a0a0a;
+            border: none;
+        }
+        
+        .secondary-btn {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #fff;
+        }
+        
+        .primary-btn:hover, .secondary-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* About Section */
+        .about {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #0e0e0e;
+        }
+        
+        .section-title {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #e2b04a;
+            text-align: center;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        /* Menu Section */
+        .menu {
+            background-color: #0a0a0a;
+            text-align: center;
+        }
+        
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .category-btn {
+            padding: 10px 20px;
+            background: transparent;
+            color: #fff;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            border-color: #e2b04a;
+            color: #e2b04a;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .menu-item {
+            background-color: #141414;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .menu-item.animated {
+            animation: fadeInUp 0.8s forwards;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .item-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .menu-item:hover .item-image img {
+            transform: scale(1.1);
+        }
+        
+        .item-info {
+            padding: 20px;
+            text-align: left;
+        }
+        
+        .item-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #e2b04a;
+        }
+        
+        .item-desc {
+            font-size: 14px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+        
+        .item-price {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Testimonials Section */
+        .testimonials {
+            background-color: #0e0e0e;
+            text-align: center;
+        }
+        
+        .testimonials-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .slide {
+            min-width: 100%;
+            padding: 20px;
+        }
+        
+        .testimonial {
+            background-color: #141414;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quote {
+            font-size: 20px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .quote::before, .quote::after {
+            content: '"';
+            color: #e2b04a;
+            font-size: 50px;
+            line-height: 0;
+            position: relative;
+        }
+        
+        .customer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .customer-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .customer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .customer-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .customer-info p {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        .slider-nav {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .dot.active {
+            background-color: #e2b04a;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background-color: #0a0a0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 50px;
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #e2b04a;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        
+        .info-item i {
+            font-size: 24px;
+            color: #e2b04a;
+        }
+        
+        .info-text h4 {
+            margin-bottom: 5px;
+        }
+        
+        .info-text p {
+            color: #aaa;
+        }
+        
+        .contact-form {
+            flex: 1;
+            background-color: #141414;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-form h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #e2b04a;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #aaa;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background-color: #1e1e1e;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 16px;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: #e2b04a;
+            color: #0a0a0a;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(226, 176, 74, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #0e0e0e;
+            padding: 60px 5% 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #333;
+        }
+        
+        .footer-col {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .footer-col h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e2b04a;
+        }
+        
+        .footer-col p {
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #1e1e1e;
+            border-radius: 50%;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: #e2b04a;
+            color: #0a0a0a;
+            transform: translateY(-5px);
+        }
+        
+        .footer-bottom {
+            padding-top: 30px;
+            color: #666;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        /* Floating elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            h1 {
+                font-size: 48px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 36px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .menu-categories {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+    <!-- Import Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">Savory Heights</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="menu-btn">Reserve a Table</button>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Extraordinary <span style="color: #e2b04a;">Culinary</span> Experience</h1>
+            <p>Discover a unique dining experience with our carefully crafted menu that combines traditional flavors with modern techniques. Each dish tells a story of passion and creativity.</p>
+            <div class="cta-buttons">
+                <button class="primary-btn">View Our Menu</button>
+                <button class="secondary-btn">Make a Reservation</button>
+            </div>
+        </div>
+        <div class="floating-elements">
+            <div class="floating" style="position: absolute; top: 20%; left: 10%; opacity: 0.6;">
+                <i class="fas fa-utensils" style="font-size: 40px; color: #e2b04a;"></i>
+            </div>
+            <div class="floating" style="position: absolute; top: 70%; left: 80%; animation-delay: 1s; opacity: 0.6;">
+                <i class="fas fa-wine-glass-alt" style="font-size: 50px; color: #e2b04a;"></i>
+            </div>
+            <div class="floating" style="position: absolute; top: 30%; left: 85%; animation-delay: 2s; opacity: 0.6;">
+                <i class="fas fa-concierge-bell" style="font-size: 35px; color: #e2b04a;"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2 class="section-title">Our Story</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Founded in 2010, Savory Heights began as a small family restaurant with a big dream: to create an unforgettable dining experience that combines the finest ingredients with exceptional service.</p>
+                <p>Over the years, our passionate team of chefs has perfected the art of creating dishes that not only satisfy the taste buds but also tell a story through flavors and presentation.</p>
+                <p>Today, we are proud to be recognized as one of the finest dining establishments in the city, welcoming guests from all over the world to experience our unique culinary creations.</p>
+            </div>
+            <div class="about-image">
+                <img src="/api/placeholder/600/400" alt="Restaurant interior">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <h2 class="section-title">Our Menu</h2>
+        <div class="menu-categories">
+            <button class="category-btn active">All</button>
+            <button class="category-btn">Starters</button>
+            <button class="category-btn">Main Course</button>
+            <button class="category-btn">Desserts</button>
+            <button class="category-btn">Drinks</button>
+        </div>
+        <div class="menu-items">
+            <!-- Menu Item 1 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <img src="/api/placeholder/400/300" alt="Truffle Risotto">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-title">Truffle Risotto</h3>
+                    <p class="item-desc">Creamy Arborio rice cooked with white wine, Parmesan cheese, and topped with fresh black truffle shavings.</p>
+                    <p class="item-price">$24</p>
+                </div>
+            </div>
+            <!-- Menu Item 2 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <img src="/api/placeholder/400/300" alt="Seared Scallops">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-title">Seared Scallops</h3>
+                    <p class="item-desc">Pan-seared sea scallops served with pea puree, crispy pancetta, and microgreens.</p>
+                    <p class="item-price">$28</p>
+                </div>
+            </div>
+            <!-- Menu Item 3 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <img src="/api/placeholder/400/300" alt="Filet Mignon">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-title">Filet Mignon</h3>
+                    <p class="item-desc">Grilled 8oz tender beef filet served with truffle mashed potatoes and seasonal vegetables.</p>
+                    <p class="item-price">$36</p>
+                </div>
+            </div>
+            <!-- Menu Item 4 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <img src="/api/placeholder/400/300" alt="Chocolate Soufflé">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-title">Chocolate Soufflé</h3>
+                    <p class="item-desc">Light and airy dark chocolate soufflé served with vanilla bean ice cream.</p>
+                    <p class="item-price">$14</p>
+                </div>
+            </div>
+            <!-- Menu Item 5 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <img src="/api/placeholder/400/300" alt="Lobster Linguine">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-title">Lobster Linguine</h3>
+                    <p class="item-desc">Homemade linguine pasta tossed with fresh lobster meat in a light cherry tomato and white wine sauce.</p>
+                    <p class="item-price">$32</p>
+                </div>
+            </div>
+            <!-- Menu Item 6 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <img src="/api/placeholder/400/300" alt="Signature Cocktail">
+                </div>
+                <div class="item-info">
+                    <h3 class="item-title">Savory Heights Signature</h3>
+                    <p class="item-desc">Our signature cocktail with premium vodka, elderflower liqueur, fresh lime, and mint.</p>
+                    <p class="item-price">$16</p>
+                </div>
+            </div>
+        </div>
+    </section>
+     <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <h2 class="section-title">What Our Guests Say</h2>
+        <div class="testimonials-slider">
+            <div class="slides">
+                <!-- Testimonial 1 -->
+                <div class="slide">
+                    <div class="testimonial">
+                        <p class="quote">The best dining experience I've had in years. The truffle risotto was absolutely divine, and the service was impeccable.</p>
+                        <div class="customer">
+                            <div class="customer-image">
+                                <img src="/api/placeholder/100/100" alt="Customer">
+                            </div>
+                            <div class="customer-info">
+                                <h4>Emily Johnson</h4>
+                                <p>Food Critic</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="slide">
+                    <div class="testimonial">
+                        <p class="quote">Every dish is a work of art. Not only does the food look beautiful, but the flavors are perfectly balanced. A must-visit for any food enthusiast.</p>
+                        <div class="customer">
+                            <div class="customer-image">
+                                <img src="/api/placeholder/100/100" alt="Customer">
+                            </div>
+                            <div class="customer-info">
+                                <h4>Michael Smith</h4>
+                                <p>Regular Guest</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="slide">
+                    <div class="testimonial">
+                        <p class="quote">We celebrated our anniversary here and couldn't have chosen a better place. The romantic ambiance, exceptional food, and attentive staff made it a night to remember.</p>
+                        <div class="customer">
+                            <div class="customer-image">
+                                <img src="/api/placeholder/100/100" alt="Customer">
+                            </div>
+                            <div class="customer-info">
+                                <h4>Sarah & David</h4>
+                                <p>Couple</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Get in Touch</h3>
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="info-text">
+                        <h4>Location</h4>
+                        <p>123 Gourmet Street, Culinary District</p>
+                        <p>New York, NY 10001</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="info-text">
+                        <h4>Opening Hours</h4>
+                        <p>Monday - Thursday: 5:00 PM - 10:00 PM</p>
+                        <p>Friday - Sunday: 5:00 PM - 11:00 PM</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <div class="info-text">
+                        <h4>Reservations</h4>
+                        <p>+1 (555) 123-4567</p>
+                        <p>reservations@savoryheights.com</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Make a Reservation</h3>
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <input type="number" id="guests" class="form-control" placeholder="How many guests?">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date & Time</label>
+                    <input type="datetime-local" id="date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="message">Special Requests</label>
+                    <textarea id="message" class="form-control" placeholder="Any special requests or dietary requirements?"></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Book a Table</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Savory Heights</h3>
+                <p>Experience culinary excellence in a warm and inviting atmosphere.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-yelp"></i></a>
+                </div>
+            </div>    
+            <div class="footer-col">    
+                <h3>Quick Links</h3>
+                <p><a href="#home" style="color: #aaa; text-decoration: none;">Home</a></p>
+                <p><a href="#about" style="color: #aaa; text-decoration: none;">About Us</a></p>
+                <p><a href="#menu" style="color: #aaa; text-decoration: none;">Menu</a></p>
+                <p><a href="#contact" style="color: #aaa; text-decoration: none;">Reservations</a></p>
+            </div>
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for special offers and updates.</p>
+                <div style="display: flex; margin-top: 15px;">
+                    <input type="email" class="form-control" placeholder="Your email" style="border-radius: 5px 0 0 5px;">
+                    <button style="background: #e2b04a; border: none; padding: 0 15px; border-radius: 0 5px 5px 0; cursor: pointer;">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Savory Heights Restaurant. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Menu items animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            // Function to check if an element is in viewport
+            function isInViewport(element) {
+                const rect = element.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.bottom >= 0
+                );
+            }
+            
+            // Initial check for elements in viewport
+            function checkElements() {
+                menuItems.forEach((item, index) => {
+                    if (isInViewport(item)) {
+                        setTimeout(() => {
+                            item.classList.add('animated');
+                        }, index * 100);
+                    }
+                });
+            }
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkElements);
+            
+            // Initial check
+            checkElements();
+            
+            // Testimonial slider
+            const slides = document.querySelector('.slides');
+            const dots = document.querySelectorAll('.dot');
+            let currentSlide = 0;
+            
+            function showSlide(index) {
+                slides.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+                currentSlide = index;
+            }
+            
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                });
+            });
+            
+            // Auto slide
+            setInterval(() => {
+                const nextSlide = (currentSlide + 1) % dots.length;
+                showSlide(nextSlide);
+            }, 5000);
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Menu category filter
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Simulate category filtering with animation
+                    menuItems.forEach(item => {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(30px)';
+                    });
+                    
+                    setTimeout(() => {
+                        menuItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'translateY(0)';
+                            }, index * 100);
+                        });
+                    }, 300);
+                });
+            });
+            
+            // Form submission animation
+            const form = document.querySelector('.contact-form');
+            
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('.submit-btn');
+                    const originalText = submitBtn.textContent;
+                    
+                    submitBtn.textContent = 'Sending...';
+                    submitBtn.style.opacity = '0.7';
+                    submitBtn.disabled = true;
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                        submitBtn.style.backgroundColor = '#4CAF50';
+                        submitBtn.style.opacity = '1';
+                        
+                        // Reset form
+                        setTimeout(() => {
+                            form.reset();
+                            submitBtn.textContent = originalText;
+                            submitBtn.style.backgroundColor = '#e2b04a';
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }, 1500);
+                });
+            }
+            
+            // Parallax effect for hero section
+            window.addEventListener('scroll', function() {
+                const hero = document.querySelector('.hero');
+                const scrollPosition = window.scrollY;
+                
+                if (hero) {
+                    hero.style.backgroundPosition = `center ${scrollPosition * 0.4}px`;
+                }
+            });
+            
+            // Add a food animation that follows cursor
+            const body = document.querySelector('body');
+            const foodIcons = ['🍕', '🍔', '🍷', '🍰', '🍣', '🍹', '🥗', '🍝'];
+            
+            body.addEventListener('mousemove', function(e) {
+                if (Math.random() > 0.97) {
+                    const icon = document.createElement('div');
+                    icon.className = 'food-icon';
+                    icon.textContent = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                    icon.style.position = 'absolute';
+                    icon.style.left = `${e.clientX}px`;
+                    icon.style.top = `${e.clientY}px`;
+                    icon.style.fontSize = '20px';
+                    icon.style.pointerEvents = 'none';
+                    icon.style.zIndex = '9999';
+                    icon.style.opacity = '0';
+                    icon.style.transition = 'all 1s ease';
+                    
+                    body.appendChild(icon);
+                    
+                    setTimeout(() => {
+                        icon.style.transform = `translateY(-100px) rotate(${Math.random() * 90 - 45}deg)`;
+                        icon.style.opacity = '1';
+                    }, 10);
+                    
+                    setTimeout(() => {
+                        icon.style.opacity = '0';
+                    }, 800);
+                    
+                    setTimeout(() => {
+                        body.removeChild(icon);
+                    }, 1500);
+                }
+            });
+            
+            // CTA button hover animations
+            const ctaButtons = document.querySelectorAll('.primary-btn, .secondary-btn, .menu-btn, .submit-btn');
+            
+            ctaButtons.forEach(button => {
+                button.addEventListener('mouseover', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 20px rgba(226, 176, 74, 0.3)';
+                });
+                
+                button.addEventListener('mouseout', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+            
+            // Add special dish animation
+            const specialDish = document.createElement('div');
+            specialDish.innerHTML = `
+                <div style="position: fixed; bottom: 30px; right: 30px; background-color: #141414; border-radius: 10px; padding: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); display: flex; align-items: center; z-index: 999; transform: translateY(200px); transition: transform 0.5s ease;">
+                    <div style="width: 60px; height: 60px; border-radius: 10px; overflow: hidden; margin-right: 15px;">
+                        <img src="/api/placeholder/100/100" alt="Special Dish" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div>
+                        <h4 style="margin: 0 0 5px; color: #e2b04a;">Today's Special</h4>
+                        <p style="margin: 0; font-size: 14px; color: #aaa;">Sea Bass with Saffron Sauce</p>
+                        <p style="margin: 5px 0 0; font-size: 16px; font-weight: 600;">$34</p>
+                    </div>
+                    <button style="background: none; border: none; color: #666; margin-left: 15px; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(specialDish);
+            
+            // Show special dish notification after 3 seconds
+            setTimeout(() => {
+                specialDish.querySelector('div').style.transform = 'translateY(0)';
+            }, 3000);
+            
+            // Close button functionality
+            specialDish.querySelector('button').addEventListener('click', function() {
+                specialDish.querySelector('div').style.transform = 'translateY(200px)';
+                
+                setTimeout(() => {
+                    document.body.removeChild(specialDish);
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
+   
